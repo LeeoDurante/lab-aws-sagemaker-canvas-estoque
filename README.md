@@ -1,47 +1,19 @@
-# 📊 Previsão de Estoque Inteligente na AWS com [SageMaker Canvas](https://aws.amazon.com/pt/sagemaker/canvas/)
+Previsão de Preço
 
-Bem-vindo ao desafio de projeto "Previsão de Estoque Inteligente na AWS com SageMaker Canvas. Neste Lab DIO, você aprenderá a usar o SageMaker Canvas para criar previsões de estoque baseadas em Machine Learning (ML). Siga os passos abaixo para completar o desafio!
+Este README descreve o processo de criação de um modelo de ML utilizando a ferramenta no-code Amazon SageMaker Canvas, utilizando o dataset Housing encontrado na pasta datasets deste repositório.
 
-## 📋 Pré-requisitos
+ Análise do Dataset e Construção do Modelo
 
-Antes de começar, certifique-se de ter uma conta na AWS. Se precisar de ajuda para criar sua conta, confira nosso repositório [AWS Cloud Quickstart](https://github.com/digitalinnovationone/aws-cloud-quickstart).
+Antes de iniciar a criação do modelo, foi realizada uma análise preliminar do dataset. Durante essa análise, verificou-se que não havia valores ausentes, que o tipo de modelo mais adequado seria o Numeric model type e que havia muitas variáveis categóricas binárias.
 
+Para construir o modelo, a métrica escolhida para prever os coeficientes foi o MSE (Mean Squared Error). O dataset foi dividido em conjuntos de treinamento (80%) e validação (20%). O algoritmo de treinamento foi gerenciado pelo Amazon SageMaker Canvas, e a coluna alvo selecionada foi `price`.
 
-## 🎯 Objetivos Deste Desafio de Projeto (Lab)
+ Análise dos Resultados do Modelo
 
-![image](https://github.com/digitalinnovationone/lab-aws-sagemaker-canvas-estoque/assets/730492/72f5c21f-5562-491e-aa42-2885a3184650)
+Inicialmente, ao observar as métricas RMSE e MSE, pode-se ter a impressão de que o modelo teve um desempenho insatisfatório, pois os valores foram, respectivamente, 1.013.091,25 e 1.026.353.856.512,00. No entanto, isso se deve ao fato de que os valores da variável alvo (price) são bastante elevados.
 
-- Dê um fork neste projeto e reescreva este `README.md`. Sinta-se à vontade para detalhar todo o processo de criação do seu Modelo de ML para uma "Previsão de Estoque Inteligente".
-- Para isso, siga o [passo a passo] descrito a seguir e evolua as suas habilidades em ML no-code com o Amazon SageMaker Canvas.
-- Ao concluir, envie a URL do seu repositório com a solução na plataforma da DIO.
+Como o objetivo deste projeto era testar a capacidade do Amazon SageMaker Canvas, nenhum dado foi normalizado ou padronizado previamente. Entretanto, mesmo sem realizar esses processos, podemos obter uma melhor compreensão do desempenho do modelo ao observar a métrica R-squared, que apresentou um valor significativo de 70,641%. Isso significa que as features do modelo conseguem explicar pelo menos 70% da variação no preço, sendo a coluna `area` a mais influente, conforme mostra a imagem abaixo:
 
+Previsões
 
-## 🚀 Passo a Passo
-
-### 1. Selecionar Dataset
-
--   Navegue até a pasta `datasets` deste repositório. Esta pasta contém os datasets que você poderá escolher para treinar e testar seu modelo de ML. Sinta-se à vontade para gerar/enriquecer seus próprios datasets, quanto mais você se engajar, mais relevante esse projeto será em seu portfólio.
--   Escolha o dataset que você usará para treinar seu modelo de previsão de estoque.
--   Faça o upload do dataset no SageMaker Canvas.
-
-### 2. Construir/Treinar
-
--   No SageMaker Canvas, importe o dataset que você selecionou.
--   Configure as variáveis de entrada e saída de acordo com os dados.
--   Inicie o treinamento do modelo. Isso pode levar algum tempo, dependendo do tamanho do dataset.
-
-### 3. Analisar
-
--   Após o treinamento, examine as métricas de performance do modelo.
--   Verifique as principais características que influenciam as previsões.
--   Faça ajustes no modelo se necessário e re-treine até obter um desempenho satisfatório.
-
-### 4. Prever
-
--   Use o modelo treinado para fazer previsões de estoque.
--   Exporte os resultados e analise as previsões geradas.
--   Documente suas conclusões e qualquer insight obtido a partir das previsões.
-
-## 🤔 Dúvidas?
-
-Esperamos que esta experiência tenha sido enriquecedora e que você tenha aprendido mais sobre Machine Learning aplicado a problemas reais. Se tiver alguma dúvida, não hesite em abrir uma issue neste repositório ou entrar em contato com a equipe da DIO.
+Utilizando a ferramenta de single prediction, podemos confirmar que a coluna `area` é realmente a que mais impacta a variação do preço.
